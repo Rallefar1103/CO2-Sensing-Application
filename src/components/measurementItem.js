@@ -10,21 +10,28 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-const getMeasurementForType = async (type, setLoading) => {
+const getMeasurementForType = async (type, setLoading, setData) => {
   setLoading(true);
   await new Promise((resolve) => setTimeout(resolve, 3000));
-  setLoading(false);
 
-  return await getMeasurement(type);
+  const fetchedData = await getMeasurement(type);
+  setData(fetchedData);
+  setLoading(false);
 };
 
 export default MeasurementItem = (props) => {
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+
   return (
     <>
       <View style={styles.measurementContainer} alignItems="center">
         <Text style={styles.measurementText}> {props.type} </Text>
-        <Ionicons name={props.icon} size={34} color="#ff7900" />
+        <View style={styles.dataRow}>
+          <Ionicons name={props.icon} size={34} color="#ff7900" />
+          {data && <Text style={{ marginLeft: 8, paddingTop: 5 }}>{data}</Text>}
+        </View>
+
         {loading ? (
           <ActivityIndicator
             style={styles.spinner}
@@ -34,7 +41,9 @@ export default MeasurementItem = (props) => {
         ) : (
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={() => getMeasurementForType(props.type, setLoading)}
+              onPress={() =>
+                getMeasurementForType(props.type, setLoading, setData)
+              }
               style={styles.measureButton}
             >
               <Text> Measure </Text>
@@ -53,6 +62,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: "center",
     backgroundColor: "#F5F5F5",
+  },
+
+  dataRow: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   headerText: {

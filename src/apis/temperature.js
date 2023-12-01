@@ -1,6 +1,7 @@
 export const getTemperatureMeasurement = async () => {
   try {
     console.log("Temperature");
+    return "Temperature data";
     // const response = await fetch("");
     // const json = await response.json();
     // return response.body;

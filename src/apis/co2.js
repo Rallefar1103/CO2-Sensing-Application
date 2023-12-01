@@ -1,6 +1,7 @@
 export const getCO2Measurement = async () => {
   try {
     console.log("CO2");
+    return "CO2 data";
     // const response = await fetch("");
     // const json = await response.json();
     // return response.body;
