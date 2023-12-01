@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import {
@@ -10,11 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import MeasurementItem from "../components/measurementItem";
+import { getMeasurement } from "../apis/co2";
 
 const measurements = [
-  { id: "1", type: "CO2", icon: "md-cloud-outline" },
-  { id: "2", type: "Humidity", icon: "md-water-outline" },
-  { id: "3", type: "Temperature", icon: "md-thermometer-outline" },
+  { id: "1", type: "CO2", icon: "md-cloud-outline", data: "" },
+  { id: "2", type: "Humidity", icon: "md-water-outline", data: "" },
+  { id: "3", type: "Temperature", icon: "md-thermometer-outline", data: "" },
 ];
 
 const renderItem = ({ item }) => (
@@ -31,7 +32,6 @@ export default HomeScreen = () => {
         data={measurements}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        // Optional: if you want to add a separator between items
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       />
     </View>

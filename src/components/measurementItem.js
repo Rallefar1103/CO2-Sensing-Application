@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { getMeasurement } from "../apis/getMeasurement";
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+const getMeasurementForType = async (type) => {
+  console.log(type);
+};
+
 export default MeasurementItem = (props) => {
   return (
     <>
@@ -18,9 +23,7 @@ export default MeasurementItem = (props) => {
         <Ionicons name={props.icon} size={34} color="#ff7900" />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            onPress={() => {
-              console.log("Pressed");
-            }}
+            onPress={() => getMeasurementForType(props.type)}
             style={styles.measureButton}
           >
             <Text style={styles.signOutText}> Measure </Text>
