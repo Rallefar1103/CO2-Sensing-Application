@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { getMeasurement } from "../apis/getMeasurement";
@@ -6,29 +6,41 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 
-const getMeasurementForType = async (type) => {
+const getMeasurementForType = async (type, setLoading) => {
+  setLoading(true);
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  setLoading(false);
+
   return await getMeasurement(type);
 };
 
 export default MeasurementItem = (props) => {
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <View style={styles.measurementContainer} alignItems="center">
         <Text style={styles.measurementText}> {props.type} </Text>
         <Ionicons name={props.icon} size={34} color="#ff7900" />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => getMeasurementForType(props.type)}
-            style={styles.measureButton}
-          >
-            <Text style={styles.signOutText}> Measure </Text>
-          </TouchableOpacity>
-        </View>
+        {loading ? (
+          <ActivityIndicator
+            style={styles.spinner}
+            size="large"
+            color="#0000ff"
+          />
+        ) : (
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => getMeasurementForType(props.type, setLoading)}
+              style={styles.measureButton}
+            >
+              <Text> Measure </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </>
   );
@@ -68,6 +80,10 @@ const styles = StyleSheet.create({
 
   measurementContainer: {
     flexDirection: "column",
+  },
+
+  spinner: {
+    paddingTop: 10,
   },
 
   measurementText: {
