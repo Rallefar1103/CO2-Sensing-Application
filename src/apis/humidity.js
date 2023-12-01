@@ -1,9 +1,9 @@
 export const getHumidityMeasurement = async () => {
   try {
-    const response = await fetch("");
-
-    const json = await response.json();
-    return response.body;
+    console.log("Humidity");
+    // const response = await fetch("");
+    // const json = await response.json();
+    // return response.body;
   } catch (e) {
     if (e instanceof Error) {
       throw e;

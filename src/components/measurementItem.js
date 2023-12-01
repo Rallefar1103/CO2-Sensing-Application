@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 const getMeasurementForType = async (type) => {
-  console.log(type);
+  return await getMeasurement(type);
 };
 
 export default MeasurementItem = (props) => {
